@@ -1,0 +1,4 @@
+/* Estilos base para o SelectComponent */
+select::-ms-expand {
+  display: none;
+}

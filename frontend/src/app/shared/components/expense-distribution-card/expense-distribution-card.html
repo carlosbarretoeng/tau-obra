@@ -1,0 +1,43 @@
+<div class="px-4 mb-10 animate-in slide-in-from-bottom-4 duration-700">
+  <div
+    class="p-6 bg-gradient-to-br from-slate-900 to-slate-950 border border-white/[0.08] rounded-3xl overflow-hidden shadow-2xl relative">
+
+    <!-- Title Section -->
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex flex-col w-full">
+        @if (isLoading()) {
+        <div class="h-4 w-32 bg-white/[0.05] rounded-full mx-auto animate-pulse mb-1"></div>
+        } @else {
+        <div class="text-sm text-center font-black uppercase tracking-[0.2em] text-slate-500 mb-1">
+          Distribuição de Despesas
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Content: Chart or Skeleton -->
+    @if (isLoading()) {
+    <div class="relative w-full aspect-square flex items-center justify-center p-8">
+      <!-- Circle Skeleton -->
+      <div
+        class="w-full h-full rounded-full border-[20px] border-white/[0.03] flex items-center justify-center animate-pulse">
+        <div class="w-1/2 h-1/2 rounded-full bg-white/[0.02] border-[10px] border-white/[0.02]"></div>
+      </div>
+
+      <!-- Legend Skeleton -->
+      <div class="absolute bottom-0 left-0 right-0 flex justify-center gap-4">
+        <div class="h-2 w-10 bg-white/[0.05] rounded-full animate-pulse"></div>
+        <div class="h-2 w-10 bg-white/[0.05] rounded-full animate-pulse"></div>
+        <div class="h-2 w-10 bg-white/[0.05] rounded-full animate-pulse"></div>
+      </div>
+    </div>
+    } @else {
+
+    @if(internalData().length === 0) {
+    <div class="text-center text-slate-500">Nenhum dado disponível</div>
+    } @else {
+    <app-sunburst-chart [data]="internalData()"></app-sunburst-chart>
+    }
+    }
+  </div>
+</div>

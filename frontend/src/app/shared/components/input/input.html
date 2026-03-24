@@ -1,0 +1,43 @@
+<div class="space-y-1.5 transition-transform duration-300 focus-within:-translate-y-0.5">
+  <label *ngIf="label()" class="block text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 ml-1">
+    {{ label() }}
+  </label>
+  <div class="relative group">
+    <!-- Left Icon -->
+    <div 
+      *ngIf="iconName" 
+      class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors pointer-events-none">
+      <lucide-icon [name]="iconName" class="w-4 h-4"></lucide-icon>
+    </div>
+
+    <input 
+      [type]="inputType" 
+      [placeholder]="placeholder()" 
+      [value]="value"
+      [disabled]="disabled"
+      (input)="handleInputChange($event)"
+      (blur)="onTouched()"
+      [ngClass]="{ 'pl-12': iconName, 'px-5': !iconName, 'opacity-50 cursor-not-allowed': disabled }"
+      class="w-full bg-slate-900/60 border border-white/[0.05] rounded-xl py-3.5 pr-14 text-white text-sm placeholder-slate-600 outline-none focus:ring-2 focus:ring-blue-500/40 focus:bg-slate-900/80 transition-all duration-300 appearance-none" />
+    
+    <!-- Password Visibility Toggle -->
+    <button 
+      *ngIf="type() === 'password'"
+      type="button"
+      (click)="togglePassword()"
+      class="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-lg text-slate-500 hover:text-white active:bg-white/5 transition-all outline-none flex items-center justify-center">
+      
+      <lucide-icon 
+        *ngIf="!showPassword()" 
+        name="eye" 
+        class="w-5 h-5">
+      </lucide-icon>
+      
+      <lucide-icon 
+        *ngIf="showPassword()" 
+        name="eye-off" 
+        class="w-5 h-5">
+      </lucide-icon>
+    </button>
+  </div>
+</div>

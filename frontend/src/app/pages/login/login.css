@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+input:focus + div {
+  transform: scale(1);
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
