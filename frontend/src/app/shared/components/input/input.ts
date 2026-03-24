@@ -58,6 +58,9 @@ export class InputComponent implements ControlValueAccessor {
     } else if (this.type() === 'telephone') {
       rawValue = this.applyPhoneMask(rawValue);
       target.value = rawValue;
+    } else if (this.type() === 'money') {
+      rawValue = this.applyMoneyMask(rawValue);
+      target.value = rawValue;
     }
 
     this.value = rawValue;
@@ -120,6 +123,17 @@ export class InputComponent implements ControlValueAccessor {
     return out.substring(0, 15);
   }
 
+  private applyMoneyMask(v: string): string {
+    v = v.replace(/\D/g, '');
+    if (!v) return '';
+    const val = parseInt(v, 10);
+    const s = val.toString().padStart(3, '0');
+    const cents = s.slice(-2);
+    const integerPart = s.slice(0, -2);
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return `${formattedInteger},${cents}`;
+  }
+
   togglePassword() {
     this.showPassword.update(v => !v);
   }
@@ -142,6 +156,7 @@ export class InputComponent implements ControlValueAccessor {
       case 'date': return 'calendar';
       case 'taxId': return 'dock';
       case 'telephone': return 'phone';
+      case 'money': return 'dollar-sign';
       default: return null;
     }
   }

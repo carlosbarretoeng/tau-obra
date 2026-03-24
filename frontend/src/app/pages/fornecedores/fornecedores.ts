@@ -35,6 +35,7 @@ export class FornecedoresComponent implements OnInit {
   
   public isDeleteModalOpen = signal(false);
   public supplierToDelete = signal<Fornecedor | null>(null);
+  public toast = signal<{ message: string, type: 'success' | 'error' } | null>(null);
 
   public categoriaOptions: SelectOption[] = [
     { value: 'Materiais', label: 'Materiais' },
@@ -100,6 +101,30 @@ export class FornecedoresComponent implements OnInit {
   confirmDelete(fornecedor: Fornecedor) {
     this.supplierToDelete.set(fornecedor);
     this.isDeleteModalOpen.set(true);
+  }
+
+  makeCall(phone: string | undefined) {
+    if (phone) {
+      window.open(`tel:${phone.replace(/\D/g, '')}`, '_self');
+    }
+  }
+
+  getSupplierIcon(documento?: string): string {
+    if (!documento) return 'building-2';
+    return documento.includes('/') ? 'building-2' : 'user';
+  }
+
+  copyToClipboard(text: string | undefined) {
+    if (text && text !== 'N/A') {
+      navigator.clipboard.writeText(text).then(() => {
+        this.showToast('Copiado!');
+      });
+    }
+  }
+
+  private showToast(message: string, type: 'success' | 'error' = 'success') {
+    this.toast.set({ message, type });
+    setTimeout(() => this.toast.set(null), 3000);
   }
 
   async onDelete() {

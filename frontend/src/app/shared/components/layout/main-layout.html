@@ -1,4 +1,55 @@
-<div class="min-h-screen bg-[#020617] text-white font-sans flex flex-col relative overflow-hidden pb-32">
+<div class="min-h-screen bg-[#020617] text-white font-sans flex flex-col relative overflow-hidden">
+  <!-- FAB MENU OVERLAY (Z-10 to stay below Header/Nav) -->
+  @if (isFabOpen()) {
+  <div (click)="toggleFab()"
+    class="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-10 animate-in fade-in duration-300">
+  </div>
+
+  <div
+    class="fixed bottom-36 left-1/2 -translate-x-[calc(50%-68px)] z-30 flex flex-col items-end gap-5 animate-in slide-in-from-bottom-10 duration-500">
+
+    <!-- Diário de Obra -->
+    <div class="flex items-center gap-4 group cursor-pointer hover:-translate-x-1 transition-transform">
+      <span
+        class="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-blue-400 order-1 text-right">Diário</span>
+      <div
+        class="w-14 h-14 bg-slate-900 border border-white/10 rounded-2xl flex items-center justify-center text-slate-300 group-hover:text-blue-400 group-hover:border-blue-400/50 transition-all shadow-2xl order-2">
+        <lucide-icon name="book-open" class="w-6 h-6"></lucide-icon>
+      </div>
+    </div>
+
+    <!-- Entregas -->
+    <div class="flex items-center gap-4 group cursor-pointer hover:-translate-x-1 transition-transform">
+      <span
+        class="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-emerald-400 order-1 text-right">Entregas</span>
+      <div
+        class="w-14 h-14 bg-slate-900 border border-white/10 rounded-2xl flex items-center justify-center text-slate-300 group-hover:text-emerald-400 group-hover:border-emerald-400/50 transition-all shadow-2xl order-2">
+        <lucide-icon name="truck" class="w-6 h-6"></lucide-icon>
+      </div>
+    </div>
+
+    <!-- Orçamentos -->
+    <div class="flex items-center gap-4 group cursor-pointer hover:-translate-x-1 transition-transform">
+      <span
+        class="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-amber-400 order-1 text-right">Orçamentos</span>
+      <div
+        class="w-14 h-14 bg-slate-900 border border-white/10 rounded-2xl flex items-center justify-center text-slate-300 group-hover:text-amber-400 group-hover:border-amber-400/50 transition-all shadow-2xl order-2">
+        <lucide-icon name="calculator" class="w-6 h-6"></lucide-icon>
+      </div>
+    </div>
+
+    <!-- Despesas -->
+    <div class="flex items-center gap-4 group cursor-pointer hover:-translate-x-1 transition-transform">
+      <span
+        class="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-rose-400 order-1 text-right">Despesas</span>
+      <div
+        class="w-14 h-14 bg-slate-900 border border-white/10 rounded-2xl flex items-center justify-center text-slate-300 group-hover:text-rose-400 group-hover:border-rose-400/50 transition-all shadow-2xl order-2">
+        <lucide-icon name="dollar-sign" class="w-6 h-6"></lucide-icon>
+      </div>
+    </div>
+  </div>
+  }
+
   <!-- Background Accents -->
   <div
     class="absolute top-[-10%] right-[-10%] w-[70%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none">
@@ -8,7 +59,7 @@
   </div>
 
   <!-- Header Section: Shared -->
-  <header class="pt-6 px-6 pb-4 flex flex-col gap-1 relative z-50 animate-in slide-in-from-top-4 duration-700">
+  <header class="pt-6 px-6 pb-4 flex flex-col gap-1 relative z-20 animate-in slide-in-from-top-4 duration-700">
     <div class="flex items-center justify-between">
       <div class="flex flex-col">
         <h1 class="text-xl font-black tracking-tight">Fala, {{ apelido() }}!</h1>
@@ -59,7 +110,7 @@
 
   <!-- Bottom Navigation: Shared -->
   <nav
-    class="fixed bottom-0 left-0 right-0 h-20 bg-slate-900/60 backdrop-blur-3xl border-t border-white/[0.1] px-6 flex items-center justify-between z-50 shadow-2xl">
+    class="fixed bottom-0 left-0 right-0 h-20 bg-slate-900/60 backdrop-blur-3xl border-t border-white/[0.1] px-6 flex items-center justify-between z-20 shadow-2xl">
 
     <a routerLink="/dashboard" routerLinkActive="text-white" [routerLinkActiveOptions]="{exact: true}"
       class="flex flex-col items-center gap-1 text-slate-500 transition-colors">
@@ -75,23 +126,22 @@
       <div class="w-1 h-1 bg-white rounded-full opacity-0 router-link-active:opacity-100"></div>
     </a>
 
-    <!-- Highlighted Central Action: Despesas -->
-    <div class="flex flex-col items-center -mt-14">
-      <div
-        class="w-18 h-18 bg-gradient-to-tr from-blue-600 to-emerald-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-600/20 active:scale-90 transition-transform cursor-pointer">
-        <lucide-icon name="dollar-sign" class="w-10 h-10 text-white"></lucide-icon>
-      </div>
-      <span class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mt-2">Despesas</span>
-    </div>
-
-    <button class="flex flex-col items-center gap-1 text-slate-500">
+    <a routerLink="/dashboard/equipe" routerLinkActive="text-white"
+      class="flex flex-col items-center gap-1 text-slate-500 transition-colors">
       <lucide-icon name="users" class="w-6 h-6"></lucide-icon>
       <span class="text-[8px] font-bold uppercase tracking-wider">Equipe</span>
-    </button>
+      <div class="w-1 h-1 bg-white rounded-full opacity-0 router-link-active:opacity-100"></div>
+    </a>
 
-    <button class="flex flex-col items-center gap-1 text-slate-500">
-      <lucide-icon name="file-text" class="w-6 h-6"></lucide-icon>
-      <span class="text-[8px] font-bold uppercase tracking-wider">Relatórios</span>
-    </button>
+    <!-- Highlighted Central Action: Lançamentos (FAB) -->
+    <div class="flex flex-col items-center -mt-14 z-30" (click)="toggleFab()">
+      <div
+        class="w-18 h-18 bg-gradient-to-tr from-blue-600 to-emerald-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-600/20 active:scale-90 transition-all cursor-pointer"
+        [class.rotate-45]="isFabOpen()" [class.rounded-full]="isFabOpen()">
+        <lucide-icon [name]="isFabOpen() ? 'plus' : 'house-plus'" class="w-10 h-10 text-white transition-all transform"
+          [class.rotate-90]="isFabOpen()"></lucide-icon>
+      </div>
+      <span class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mt-2">Lançamentos</span>
+    </div>
   </nav>
 </div>

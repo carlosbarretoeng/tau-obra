@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build && rm -rf ../firebase/public/* && mv dist/frontend/browser/* ../firebase/public/ && cd ../firebase && firebase deploy --only hosting && cd -",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

@@ -21,6 +21,7 @@ export class MainLayoutComponent implements OnInit {
 
   userEmail = signal<string | undefined>(undefined);
   isDropdownOpen = signal(false);
+  isFabOpen = signal(false);
   apelido = signal<string>('');
 
   async ngOnInit() {
@@ -31,6 +32,10 @@ export class MainLayoutComponent implements OnInit {
 
   toggleDropdown() {
     this.isDropdownOpen.update(v => !v);
+  }
+
+  toggleFab() {
+    this.isFabOpen.update(v => !v);
   }
 
   closeDropdown() {
